@@ -1,11 +1,11 @@
-include $(NEMU_HOME)/scripts/git.mk
-include $(NEMU_HOME)/scripts/build.mk
+include ./scripts/git.mk
+include ./scripts/build.mk
 
-include $(NEMU_HOME)/tools/difftest.mk
+include ./tools/difftest.mk
 
 compile_git:
 	$(call git_commit, "compile")
-$(BINARY): compile_git
+	$(BINARY): compile_git
 
 # Some convenient rules
 
