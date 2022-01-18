@@ -32,6 +32,11 @@ static int cmd_c(char *args) {
   return 0;
 }
 
+static int cmd_si(char *args) {
+  int now_step = (int) (*args);
+  cpu_exec(now_step);
+  return 0;
+}
 
 static int cmd_q(char *args) {
   return -1;
@@ -47,7 +52,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "Continue by step N", cmd_si },
   /* TODO: Add more commands */
 
 };
@@ -81,7 +86,7 @@ void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
 
-void sdb_mainloop() {
+void db_mainloop() {
   if (is_batch_mode) {
     cmd_c(NULL);
     return;

@@ -10,7 +10,7 @@ Q            := @
 KCONFIG_PATH := ./tools/kconfig
 FIXDEP_PATH  := ./tools/fixdep
 Kconfig      := ./Kconfig
-rm-distclean += include/generated include/config .config .config.old
+rm-distclean += ./include/generated include/config .config .config.old
 silent := -s
 
 CONF   := $(KCONFIG_PATH)/build/conf
