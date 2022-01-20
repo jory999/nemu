@@ -33,8 +33,14 @@ static int cmd_c(char *args) {
 }
 
 static int cmd_si(char *args) {
-  int now_step = (int) (*args);
+  int now_step = 1;
+  if (NULL != args)  now_step = (int) (*args) - 48;
   cpu_exec(now_step);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  isa_reg_display();
   return 0;
 }
 
@@ -53,6 +59,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Continue by step N", cmd_si },
+  { "info", "Check register or watchpoint r w", cmd_info},
   /* TODO: Add more commands */
 
 };
@@ -86,7 +93,7 @@ void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
 
-void db_mainloop() {
+void sdb_mainloop() {
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
