@@ -3,6 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include "memory/paddr.h"
 
 static int is_batch_mode = false;
 
@@ -29,6 +30,30 @@ static char* rl_gets() {
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
+  return 0;
+}
+
+static int cmd_x(char *args){
+
+int i = 0;
+char * token[9];
+token[i] = strtok( args, " ");
+while( NULL != token[i]){
+  
+  printf("%s\n", token[i]);
+  i++;
+  token[i] = strtok(NULL, " ");
+}
+//int number = atoi(token[0]);
+//uint8_t * nowadds = guest_to_host( atoi(token[1]));
+
+//extern uint8_t *pmem;
+//printf("number: %d   address: %d\n", number, nowadds);
+
+// uint8_t *p = pmem;
+printf("address: %d    value is %x\n", 0, paddr_read(atoi(token[1]),4));
+
+
   return 0;
 }
 
@@ -60,6 +85,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Continue by step N", cmd_si },
   { "info", "Check register or watchpoint r w", cmd_info},
+  { "x", "Display memory x N address", cmd_x},
   /* TODO: Add more commands */
 
 };
