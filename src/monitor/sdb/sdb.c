@@ -45,13 +45,16 @@ while( NULL != token[i]){
   token[i] = strtok(NULL, " ");
 }
 //int number = atoi(token[0]);
-//uint8_t * nowadds = guest_to_host( atoi(token[1]));
 
+//uint8_t * nowadds = guest_to_host( atoi(token[1]));
+printf("strtoi: %lX\n", strtol(token[1], NULL, 16));
 //extern uint8_t *pmem;
 //printf("number: %d   address: %d\n", number, nowadds);
 
 // uint8_t *p = pmem;
-printf("address: %d    value is %x\n", 0, paddr_read(atoi(token[1]),4));
+for (int j=0;j<atoi(token[0]); j++){
+printf("address: 0x%lX    value is 0x%x\n", strtol(token[1], NULL, 16) + j, paddr_read(strtol(token[1], NULL, 16) + j,1));
+}
 
 
   return 0;
